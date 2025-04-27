@@ -17,20 +17,18 @@ type ServiceCardProps = {
   link: string;
 };
 
-const ServiceCard = ({ icon, title, description, link }: ServiceCardProps) => {
-  return (
-    <Link
-      to={link}
-      className="bg-white p-6 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col items-center text-center group"
-    >
-      <div className="bg-mlomp-blue/10 p-4 rounded-full mb-4 text-mlomp-blue group-hover:bg-mlomp-blue group-hover:text-white transition-all">
-        {icon}
-      </div>
-      <h3 className="text-lg font-semibold mb-2">{title}</h3>
-      <p className="text-gray-600 text-sm">{description}</p>
-    </Link>
-  );
-};
+const ServiceCard = ({ icon, title, description, link }: ServiceCardProps) => (
+  <Link
+    to={link}
+    className="bg-white p-6 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col items-center text-center group"
+  >
+    <div className="bg-mlomp-blue/10 p-4 rounded-full mb-4 text-mlomp-blue group-hover:bg-mlomp-blue group-hover:text-white transition-all">
+      {icon}
+    </div>
+    <h3 className="text-lg font-semibold mb-2">{title}</h3>
+    <p className="text-gray-600 text-sm">{description}</p>
+  </Link>
+);
 
 // Données statiques pour les services
 const staticServices = [
@@ -231,20 +229,8 @@ const CitizenSpace = () => {
               transition={{ duration: 0.5 }}
               className="text-center max-w-3xl mx-auto"
             >
-              <h1 className="text-3xl md:text-5xl font-bold mb-6 text-gray-800">
-                Espace Citoyen
-              </h1>
-              <p className="text-lg text-gray-600 mb-8">
-                Un portail dédié aux services administratifs pour les habitants de Mlomp
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Button className="bg-mlomp-green hover:bg-mlomp-green-dark">
-                  Démarches en ligne
-                </Button>
-                <Button variant="outline">
-                  Prendre rendez-vous
-                </Button>
-              </div>
+              <h1 className="text-4xl font-bold text-mlomp-blue">Bienvenue sur l'Espace Citoyen</h1>
+              <p className="mt-4 text-lg text-gray-600">Effectuez vos démarches administratives en ligne en toute simplicité.</p>
             </motion.div>
           </div>
         </section>
@@ -252,17 +238,12 @@ const CitizenSpace = () => {
         {/* Services Section */}
         <section className="py-16 bg-white">
           <div className="container-custom">
-            <SectionTitle 
-              title="Nos Services" 
-              subtitle="Accédez facilement à tous les services administratifs de la commune de Mlomp"
-              centered
-            />
-
+            <SectionTitle title="Nos Services" />
             <motion.div 
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12"
+              variants={containerVariants} 
+              initial="hidden" 
+              animate="visible" 
+              className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-8"
             >
               {staticServices.map((service, index) => (
                 <motion.div key={index} variants={itemVariants}>
@@ -273,175 +254,47 @@ const CitizenSpace = () => {
           </div>
         </section>
 
-        {/* Démarches Administratives */}
+        {/* Procedures Section */}
         <section className="py-16 bg-gray-50">
           <div className="container-custom">
-            <SectionTitle 
-              title="Démarches Administratives" 
-              subtitle="Consultez les informations nécessaires pour vos démarches administratives"
-              centered
-            />
-            
-            {loading ? (
-              <div className="flex justify-center items-center py-16">
-                <Loader2 className="w-12 h-12 animate-spin text-mlomp-green" />
-              </div>
-            ) : (
-              <motion.div 
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12"
-              >
-                {procedures.map((procedure, index) => (
+            <SectionTitle title="Nos Démarches Administratives" />
+            <motion.div 
+              variants={containerVariants} 
+              initial="hidden" 
+              animate="visible" 
+              className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-8"
+            >
+              {loading ? (
+                <div className="col-span-4 text-center">
+                  <Loader2 className="animate-spin h-8 w-8 mx-auto text-mlomp-blue" />
+                </div>
+              ) : error ? (
+                <div className="col-span-4 text-center text-red-500">{error}</div>
+              ) : (
+                procedures.map((procedure, index) => (
                   <motion.div key={index} variants={itemVariants}>
-                    <Card className="h-full">
-                      <CardHeader className="flex flex-row items-center gap-4">
-                        <div className="bg-mlomp-green/10 p-3 rounded-full text-mlomp-green">
+                    <Card className="shadow-lg hover:shadow-xl transition-all duration-300">
+                      <CardHeader>
+                        <CardTitle className="flex items-center space-x-2">
                           {procedure.icon}
-                        </div>
-                        <div>
-                          <CardTitle>{procedure.title}</CardTitle>
-                          <p className="text-sm text-gray-500">{procedure.description}</p>
-                        </div>
+                          <span>{procedure.title}</span>
+                        </CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <div className="space-y-4">
-                          <div>
-                            <h4 className="text-sm font-medium text-gray-700 mb-1">Documents requis:</h4>
-                            <ul className="list-disc list-inside text-sm text-gray-600 pl-2">
-                              {procedure.documents.map((doc, idx) => (
-                                <li key={idx}>{doc}</li>
-                              ))}
-                            </ul>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <span className="text-sm text-gray-600">Délai de traitement:</span>
-                            <span className="bg-mlomp-blue/10 text-mlomp-blue text-sm px-2 py-1 rounded">
-                              {procedure.delay}
-                            </span>
-                          </div>
-                          <Button 
-                            variant="outline" 
-                            className="w-full mt-2"
-                            asChild={!!procedure.onlineUrl}
-                          >
-                            {procedure.onlineUrl ? (
-                              <Link to={procedure.onlineUrl}>Demander en ligne</Link>
-                            ) : (
-                              "Demander en ligne"
-                            )}
-                          </Button>
-                        </div>
+                        <p className="text-sm text-gray-600">{procedure.description}</p>
+                        <p className="mt-2 text-xs text-gray-500">Documents nécessaires: {procedure.documents.join(', ')}</p>
+                        <p className="mt-2 text-xs text-gray-500">Délai: {procedure.delay}</p>
+                        {procedure.onlineUrl && (
+                          <Link to={procedure.onlineUrl}>
+                            <Button className="mt-4">Effectuer la démarche</Button>
+                          </Link>
+                        )}
                       </CardContent>
                     </Card>
                   </motion.div>
-                ))}
-              </motion.div>
-            )}
-
-            <div className="mt-12 text-center">
-              <Button className="bg-mlomp-green hover:bg-mlomp-green-dark" asChild>
-                <Link to="/espace-citoyen/demarches">Voir toutes les démarches</Link>
-              </Button>
-            </div>
-          </div>
-        </section>
-
-        {/* Conseil Municipal */}
-        <section className="py-16 bg-white">
-          <div className="container-custom">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.7 }}
-                viewport={{ once: true }}
-              >
-                <h2 className="text-2xl md:text-3xl font-bold mb-6">Participez à la vie démocratique locale</h2>
-                <p className="text-gray-600 mb-6">
-                  La commune de Mlomp encourage la participation citoyenne active. Partagez vos idées, 
-                  exprimez vos besoins et contribuez à l'amélioration de votre commune.
-                </p>
-                <div className="space-y-4">
-                  <div className="flex items-start">
-                    <div className="bg-mlomp-green/10 p-2 rounded-full text-mlomp-green mr-3 mt-1">
-                      <Calendar className="h-4 w-4" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium">Réunions publiques</h3>
-                      <p className="text-sm text-gray-600">Participez aux réunions du conseil municipal et aux consultations publiques</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <div className="bg-mlomp-green/10 p-2 rounded-full text-mlomp-green mr-3 mt-1">
-                      <ClipboardList className="h-4 w-4" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium">Budget participatif</h3>
-                      <p className="text-sm text-gray-600">Proposez des projets pour votre quartier et votez pour les initiatives que vous souhaitez voir réalisées</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <div className="bg-mlomp-green/10 p-2 rounded-full text-mlomp-green mr-3 mt-1">
-                      <FileQuestion className="h-4 w-4" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium">Questions aux élus</h3>
-                      <p className="text-sm text-gray-600">Posez vos questions directement aux élus municipaux via notre plateforme en ligne</p>
-                    </div>
-                  </div>
-                </div>
-                <Button className="mt-8 bg-mlomp-green hover:bg-mlomp-green-dark">
-                  Comment participer ?
-                </Button>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-                className="bg-gradient-to-br from-mlomp-blue/5 to-mlomp-green/5 p-8 rounded-lg"
-              >
-                <h3 className="text-xl font-semibold mb-6">Prochaine réunion publique</h3>
-                <div className="space-y-6">
-                  <div className="flex items-center">
-                    <Calendar className="h-5 w-5 text-mlomp-green mr-3" />
-                    <div>
-                      <span className="font-medium">Date et heure</span>
-                      <p className="text-gray-600">15 Juillet 2023 à 14h00</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center">
-                    <MapPin className="h-5 w-5 text-mlomp-green mr-3" />
-                    <div>
-                      <span className="font-medium">Lieu</span>
-                      <p className="text-gray-600">Salle du Conseil Municipal, Mairie de Mlomp</p>
-                    </div>
-                  </div>
-                  <div>
-                    <span className="font-medium">Ordre du jour</span>
-                    <ul className="mt-2 space-y-2 text-gray-600">
-                      <li className="flex items-start">
-                        <span className="text-mlomp-green mr-2">•</span>
-                        <span>Présentation du budget participatif 2023-2024</span>
-                      </li>
-                      <li className="flex items-start">
-                        <span className="text-mlomp-green mr-2">•</span>
-                        <span>Projets d'aménagement urbain pour le centre-ville</span>
-                      </li>
-                      <li className="flex items-start">
-                        <span className="text-mlomp-green mr-2">•</span>
-                        <span>Questions diverses des citoyens</span>
-                      </li>
-                    </ul>
-                  </div>
-                  <Button className="w-full">S'inscrire à la réunion</Button>
-                </div>
-              </motion.div>
-            </div>
+                ))
+              )}
+            </motion.div>
           </div>
         </section>
       </main>
