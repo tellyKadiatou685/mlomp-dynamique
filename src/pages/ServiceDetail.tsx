@@ -55,8 +55,8 @@ const ServiceDetail = () => {
             icon: data.icon || 'default-icon',
             longDescription: data.description,
             contactInfo: {
-              email: "contact@mlomp.sn",
-              phone: "+221 77 000 00 00",
+              email: "communemlompbignona@gmail.com",
+              phone: "776359984",
               address: "Mairie de Mlomp"
             },
             hours: "Lundi au Vendredi, 8h-17h",
