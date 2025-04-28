@@ -10,18 +10,18 @@ interface Config {
 
 const configs: Record<string, Config> = {
   development: {
-    API_URL: 'https://backendmlop.onrender.com/api', // Utilisez directement l'URL de Render
+    API_URL: 'https://backendmlop-1.onrender.com/api', // Utilisez directement l'URL de Render
     ENV: 'development'
   },
   production: {
-    API_URL: 'https://backendmlop.onrender.com/api',
+    API_URL: 'https://backendmlop-1.onrender.com/api',
     ENV: 'production'
   }
 };
 
 // Ajout d'une valeur par défaut plus explicite
 const config: Config = configs[ENV] || {
-  API_URL: 'https://backendmlop.onrender.com/api',
+  API_URL: 'https://backendmlop-1.onrender.com/api',
   ENV: 'development'
 };
 
