@@ -65,17 +65,33 @@ const Investment = () => {
         
         if (data && Array.isArray(data) && data.length > 0) {
           // Formater les données pour l'affichage
-          const formattedProjects = data.map(investment => ({
-            id: investment.id,
-            title: investment.title,
-            description: investment.shortDescription || investment.description.substring(0, 150) + "...",
-            amount: investment.amount,
-            startYear: investment.startYear || "",
-            endYear: investment.endYear || "",
-            status: investment.status,
-            category: investment.category,
-            image: investment.image ? `http://localhost:5000/uploads/investments/${investment.image}` : undefined
-          }));
+          const formattedProjects = data.map(investment => {
+            // Vérifier si l'image est une URL Cloudinary complète
+            let imageUrl;
+            if (investment.image) {
+              if (investment.image.startsWith('http')) {
+                // C'est déjà une URL complète
+                imageUrl = investment.image;
+              } else {
+                // Ajouter le préfixe du serveur backend
+                imageUrl = `${process.env.REACT_APP_API_URL || 'https://backendmlop-1.onrender.com'}/uploads/investments/${investment.image}`;
+              }
+            } else {
+              imageUrl = "/lovable-uploads/default-investment.jpg";
+            }
+            
+            return {
+              id: investment.id,
+              title: investment.title,
+              description: investment.shortDescription || investment.description.substring(0, 150) + "...",
+              amount: investment.amount,
+              startYear: investment.startYear || "",
+              endYear: investment.endYear || "",
+              status: investment.status,
+              category: investment.category,
+              image: imageUrl
+            };
+          });
           
           setProjects(formattedProjects);
         }
@@ -92,7 +108,8 @@ const Investment = () => {
             startYear: "2023",
             endYear: "2025",
             status: "En recherche de partenaires",
-            category: "Infrastructures"
+            category: "Infrastructures",
+            image: "/lovable-uploads/port.jpg"
           },
           {
             id: 2,
@@ -102,7 +119,8 @@ const Investment = () => {
             startYear: "2024",
             endYear: "2026",
             status: "Études préliminaires",
-            category: "Agriculture"
+            category: "Agriculture",
+            image: "/lovable-uploads/agriculture.jpg"
           },
           {
             id: 3,
@@ -112,7 +130,8 @@ const Investment = () => {
             startYear: "2023",
             endYear: "2024",
             status: "Recherche d'investisseurs",
-            category: "Tourisme"
+            category: "Tourisme",
+            image: "/lovable-uploads/tourism.jpg"
           }
         ]);
       } finally {
@@ -308,7 +327,7 @@ const Investment = () => {
                   </div>
                   <div className="flex items-center">
                     <span className="font-medium w-24">Téléphone:</span>
-                    <span>+221 XX XXX XX XX</span>
+                    <span>776359984</span>
                   </div>
                   <div className="flex items-center">
                     <span className="font-medium w-24">Bureau:</span>
@@ -380,39 +399,56 @@ const Investment = () => {
               >
                 {projects.slice(0, displayCount).map((project, index) => (
                   <motion.div key={project.id} variants={itemVariants}>
-                    <Card className="h-full">
-                      <CardHeader>
-                        <CardTitle>{project.title}</CardTitle>
-                        <CardDescription>{project.category}</CardDescription>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                        <p className="text-gray-600">{project.description}</p>
-                        <div className="space-y-2">
-                          <div className="flex justify-between">
-                            <span className="text-sm text-gray-500">Investissement:</span>
-                            <span className="font-medium">{project.amount}</span>
+                    <Link to={`/investissements/${project.id}`}>
+                      <Card className="h-full flex flex-col overflow-hidden group">
+                        {/* Image avec overlay pour category */}
+                        <div className="relative h-48 overflow-hidden">
+                          <img 
+                            src={project.image || "/lovable-uploads/default-investment.jpg"} 
+                            alt={project.title}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            onError={(e) => {
+                              e.currentTarget.src = "/lovable-uploads/default-investment.jpg";
+                            }}
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+                            <span className="text-white font-medium px-4 py-2">{project.category}</span>
                           </div>
-                          <div className="flex justify-between">
-                            <span className="text-sm text-gray-500">Calendrier:</span>
-                            <span>{project.startYear}{project.endYear ? ` - ${project.endYear}` : ''}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-sm text-gray-500">Statut:</span>
-                            <span className="bg-mlomp-blue/10 text-mlomp-blue text-xs px-2 py-1 rounded">
+                          <div className="absolute top-3 right-3">
+                            <span className="bg-mlomp-blue/90 text-white text-xs px-2 py-1 rounded">
                               {project.status}
                             </span>
                           </div>
                         </div>
-                      </CardContent>
-                      <CardFooter>
-                        <Link 
-                          to={`/investissements/${project.id}`} 
-                          className="w-full bg-mlomp-green hover:bg-mlomp-green-dark text-white text-center py-2 px-4 rounded-md transition-colors"
-                        >
-                          En savoir plus
-                        </Link>
-                      </CardFooter>
-                    </Card>
+                        
+                        <CardHeader className="pb-2">
+                          <CardTitle className="text-xl group-hover:text-mlomp-green transition-colors">
+                            {project.title}
+                          </CardTitle>
+                        </CardHeader>
+                        
+                        <CardContent className="space-y-4 flex-grow">
+                          <p className="text-gray-600 line-clamp-3">{project.description}</p>
+                          
+                          <div className="space-y-2 pt-2">
+                            <div className="flex justify-between">
+                              <span className="text-sm text-gray-500">Investissement:</span>
+                              <span className="font-medium text-mlomp-green">{project.amount}</span>
+                            </div>
+                            {(project.startYear || project.endYear) && (
+                              <div className="flex justify-between">
+                                <span className="text-sm text-gray-500">Calendrier:</span>
+                                <span>{project.startYear}{project.endYear ? ` - ${project.endYear}` : ''}</span>
+                              </div>
+                            )}
+                          </div>
+                        </CardContent>
+                        
+                        <CardFooter className="pt-2 border-t mt-auto">
+                          
+                        </CardFooter>
+                      </Card>
+                    </Link>
                   </motion.div>
                 ))}
               </motion.div>
@@ -420,15 +456,16 @@ const Investment = () => {
             
             {!loading && projects.length > displayCount && (
               <div className="mt-12 text-center">
-                <Button variant="outline" onClick={handleShowMore}>
+                <Button variant="outline" onClick={handleShowMore} className="flex items-center gap-2">
                   Voir plus de projets
+                  <ChevronDown className="h-4 w-4" />
                 </Button>
               </div>
             )}
             
             <div className="mt-8 text-center">
               <Link 
-                to="/investissements" 
+                to="/investissements/tous" 
                 className="inline-block border border-mlomp-green text-mlomp-green hover:bg-mlomp-green hover:text-white px-6 py-2 rounded-md transition-colors"
               >
                 Voir tous les projets

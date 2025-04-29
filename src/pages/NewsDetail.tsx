@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { 
   Loader2, 
   ArrowLeft, 
@@ -9,112 +10,65 @@ import {
   Share2, 
   Image 
 } from 'lucide-react';
+import newsServices from '@/services/newsServices';
 
-// Types and Interfaces
+// Types et interfaces
 interface NewsDetail {
   id: number;
   title: string;
   content: string;
   date: string;
-  author: string;
+  author: string | { id: number; username: string }; // Modification pour supporter les deux formats
   category: string;
   image?: string;
   readTime: string;
   tags?: string[];
 }
 
-// Fallback data structure for static news
-const staticNewsItem: NewsDetail = {
-  id: 1,
-  title: "Inauguration du nouveau centre culturel de Mlomp",
-  content: `Le nouveau centre culturel de Mlomp a été inauguré hier en présence des autorités locales et des habitants de la commune. 
+// Composant NewsDetails
+const NewsDetails: React.FC = () => {
+  // Récupérer l'ID depuis les paramètres de l'URL
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   
-  Cet événement marque un tournant important dans le développement culturel de notre région. Le centre, fruit de plusieurs années de planification et d'investissement, offrira un espace moderne pour les arts, les spectacles et les rencontres communautaires.
-
-  ### Un projet structurant pour la commune
-
-  Le centre culturel comprend plusieurs espaces:
-  - Une grande salle de spectacle de 300 places
-  - Des salles d'exposition pour les artistes locaux
-  - Un espace multimédia pour les formations et les activités éducatives
-  - Une bibliothèque moderne avec un fonds documentaire riche
-
-  ### Impact sur la communauté
-
-  Ce nouveau lieu vise à:
-  - Promouvoir la culture locale et traditionnelle
-  - Offrir des opportunités de formation artistique
-  - Créer un espace de rencontre et d'échange pour les habitants
-  - Attirer des événements culturels régionaux et nationaux
-
-  L'inauguration a été saluée par les autorités locales comme un pas significatif vers le développement culturel et social de Mlomp.`,
-  date: "15 Juin 2023",
-  author: "Mairie de Mlomp",
-  category: "Culture",
-  image: "/lovable-uploads/hopital.jpg",
-  readTime: "10 min",
-  tags: ["Culture", "Développement", "Infrastructure"]
-};
-
-// NewsDetails Component
-const NewsDetails: React.FC<{ 
-  newsId?: number; 
-  onBack?: () => void;
-  newsServices?: {
-    getNewsById: (id: number) => Promise<any>;
-  };
-}> = ({ 
-  newsId, 
-  onBack = () => window.history.back(),
-  newsServices: customNewsServices 
-}) => {
-  const [newsItem, setNewsItem] = useState<NewsDetail>(staticNewsItem);
+  const [newsItem, setNewsItem] = useState<NewsDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Fonction pour revenir à la page des actualités
+  const onBack = () => {
+    navigate('/actualites');
+  };
 
   useEffect(() => {
     const fetchNewsDetails = async () => {
       try {
-        // Validate newsId
-        if (newsId === undefined || newsId === null || isNaN(newsId)) {
+        // Valider l'ID d'actualité
+        const newsId = id ? parseInt(id, 10) : undefined;
+        
+        if (newsId === undefined || isNaN(newsId)) {
           throw new Error("ID d'actualité invalide");
         }
 
         setLoading(true);
         
-        // Use custom news services if provided, otherwise use fallback
-        const services = customNewsServices || {
-          getNewsById: async (id: number) => {
-            // Simulate API call with static data
-            console.warn(`Utilisation des données statiques pour l'ID ${id}`);
-            return Promise.resolve(staticNewsItem);
-          }
-        };
-
-        const data = await services.getNewsById(newsId);
+        // Récupérer les détails de l'actualité
+        const data = await newsServices.getNewsById(newsId);
         
-        // Format the data with fallback values
-        const formattedNewsItem: NewsDetail = {
-          id: data.id || newsId,
-          title: data.title || staticNewsItem.title,
-          content: data.content || staticNewsItem.content,
-          date: data.createdAt 
-            ? new Date(data.createdAt).toLocaleDateString('fr-FR', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
-              }) 
-            : staticNewsItem.date,
-          author: data.author?.username || staticNewsItem.author,
-          category: data.category || staticNewsItem.category,
-          image: data.image 
-            ? `https://backendmlop-1.onrender.com/uploads/news/${data.image}` 
-            : staticNewsItem.image,
-          readTime: `${Math.max(1, Math.ceil(data.content?.length / 1000))} min`,
-          tags: data.tags || staticNewsItem.tags
-        };
-
-        setNewsItem(formattedNewsItem);
+        if (data) {
+          // S'assurer que l'auteur est une chaîne de caractères
+          const formattedData = {
+            ...data,
+            // Gérer le cas où l'auteur est un objet avec username
+            author: typeof data.author === 'object' && data.author !== null
+              ? data.author.username || 'Auteur inconnu'
+              : data.author || 'Auteur inconnu'
+          };
+          
+          setNewsItem(formattedData);
+        } else {
+          throw new Error("Actualité non trouvée");
+        }
       } catch (err) {
         console.error("Erreur lors du chargement des détails de l'actualité:", err);
         setError(err instanceof Error ? err.message : "Impossible de charger les détails de l'actualité");
@@ -124,10 +78,12 @@ const NewsDetails: React.FC<{
     };
 
     fetchNewsDetails();
-  }, [newsId, customNewsServices]);
+  }, [id]);
 
   // Function to convert markdown-like content to HTML
   const convertContentToHTML = (content: string) => {
+    if (!content) return '<p class="mb-4">Aucun contenu disponible</p>';
+    
     return content
       .replace(/^### (.*$)/gim, '<h3 class="text-xl font-semibold mt-6 mb-4">$1</h3>')
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
@@ -138,12 +94,12 @@ const NewsDetails: React.FC<{
       .replace(/$/, '</p>');
   };
 
-  // Share functionality (basic implementation)
+  // Share functionality
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        title: newsItem.title,
-        text: newsItem.content.substring(0, 200) + '...',
+        title: newsItem?.title || "",
+        text: newsItem?.content?.substring(0, 200) + '...' || "",
         url: window.location.href
       }).catch(console.error);
     } else {
@@ -206,10 +162,12 @@ const NewsDetails: React.FC<{
               <Clock className="w-4 h-4 mr-2" />
               <span>{newsItem.readTime} de lecture</span>
             </div>
-            <div className="flex items-center">
-              <Tag className="w-4 h-4 mr-2" />
-              <span>{newsItem.category}</span>
-            </div>
+            {newsItem.category && (
+              <div className="flex items-center">
+                <Tag className="w-4 h-4 mr-2" />
+                <span>{newsItem.category}</span>
+              </div>
+            )}
           </div>
 
           {/* Image */}

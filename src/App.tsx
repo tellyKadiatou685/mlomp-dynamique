@@ -20,8 +20,10 @@ import AdminPage1 from "./pages/AdminPage1";
 import AdminPage2 from "./pages/AdminPage2 ";
 import AdminPage3 from "./pages/AdminPage3";
 import AdminPage4 from "./pages/AdminPage4";
-import InvestmentDetails from "./pages/InvestmentDetails";
+
 import NewsDetails from "./pages/NewsDetail";
+
+
 
 // Create a new query client
 const queryClient = new QueryClient();
@@ -61,7 +63,6 @@ const App = () => {
               <Route path="/admin/procedures" element={<AdminPage3 />} />
               <Route path="/admin/investissements" element={<AdminPage4 />} />
 
-              <Route path="/investissements/:id" element={<InvestmentDetails />} />
 
               <Route path="*" element={<NotFound />} />
             </Routes>

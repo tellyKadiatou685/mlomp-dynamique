@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, ChevronDown, LogIn } from "lucide-react";
-import MlompLogo from "../common/MlompLogo";
+
 
 type NavLink = {
   name: string;
@@ -74,7 +74,7 @@ const Navbar = () => {
     >
       <div className="container-custom flex justify-between items-center">
         <Link to="/" className="flex items-center space-x-2">
-          <MlompLogo className="h-10 w-auto" />
+         
           <span className="text-xl font-bold font-montserrat text-mlomp-green">
             Mlomp
           </span>
