@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
@@ -20,29 +19,32 @@ const Services = () => {
         />
       </Helmet>
 
-      <Navbar />
-
-      <main>
-        <ServiceHero />
+      <div className="flex flex-col min-h-screen">
+        <Navbar />
         
-        <section className="py-16 bg-white">
-          <div className="container-custom">
-            <ServiceCategories />
-            
-            <div className="mt-20">
-              <SectionTitle 
-                title="Tous nos services" 
-                subtitle="Explorez l'ensemble des services municipaux que nous proposons aux habitants de Mlomp"
-                centered
-              />
+        {/* Ajout de la classe pt-20 à main pour créer l'espace nécessaire */}
+        <main className="flex-grow pt-20">
+          <ServiceHero />
+          
+          <section className="py-16 bg-white">
+            <div className="container-custom">
+              <ServiceCategories />
               
-              <ServiceCard.Grid />
+              <div className="mt-20">
+                <SectionTitle
+                  title="Tous nos services"
+                  subtitle="Explorez l'ensemble des services municipaux que nous proposons aux habitants de Mlomp"
+                  centered
+                />
+                
+                <ServiceCard.Grid />
+              </div>
             </div>
-          </div>
-        </section>
-      </main>
-
-      <Footer />
+          </section>
+        </main>
+        
+        <Footer />
+      </div>
     </>
   );
 };

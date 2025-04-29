@@ -43,62 +43,10 @@ const ServiceLayout: React.FC<ServiceLayoutProps> = ({ service }) => {
         <Navbar />
         <main className="flex-grow pt-20">
           {/* Hero Section */}
-          <section className="relative py-24 bg-gradient-to-r from-mlomp-green to-mlomp-green-light text-white overflow-hidden">
-            <div className="container-custom relative z-10">
-              <div className="max-w-3xl mx-auto text-center">
-                <motion.h1 
-                  className="text-4xl md:text-5xl font-bold mb-6"
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  {service.title}
-                </motion.h1>
-                <motion.p 
-                  className="text-xl opacity-90 mb-8"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                >
-                  {service.description}
-                </motion.p>
-                
-                {service.statistics && (
-                  <motion.div 
-                    className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10 text-white"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
-                  >
-                    {service.statistics.map((stat, index) => (
-                      <div key={index} className="bg-white/10 p-4 rounded-lg backdrop-blur-sm">
-                        <div className="text-3xl font-bold mb-1">{stat.value}</div>
-                        <div className="text-sm opacity-80">{stat.label}</div>
-                      </div>
-                    ))}
-                  </motion.div>
-                )}
-              </div>
-            </div>
-            
-            {/* Pattern overlay */}
-            <div className="absolute inset-0 opacity-10">
-              <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="1"/>
-                  </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#grid)" />
-              </svg>
-            </div>
-            
-            <div className="absolute bottom-0 left-0 w-full overflow-hidden">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="w-full h-auto">
-                <path fill="#fff" fillOpacity="1" d="M0,128L80,133.3C160,139,320,149,480,170.7C640,192,800,224,960,213.3C1120,203,1280,149,1360,122.7L1440,96L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
-              </svg>
-            </div>
-          </section>
+        {/* Hero Section pour la page Services */}
+{/* Hero Section pour la page Services - Inspiré de votre page Présentation */}
+
+
 
           {/* Service Details */}
           <section className="py-16">

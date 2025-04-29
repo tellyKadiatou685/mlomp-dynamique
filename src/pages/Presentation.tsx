@@ -17,22 +17,27 @@ const Presentation = () => {
         <Navbar />
         <main className="flex-grow pt-20">
           {/* Hero Section */}
-          <section className="relative py-20 bg-gradient-to-r from-mlomp-green to-mlomp-green-light text-white">
-            <div className="container-custom">
-              <div className="max-w-3xl mx-auto text-center">
-                <h1 className="text-4xl md:text-5xl font-bold mb-4">Présentation de Mlomp</h1>
-                <p className="text-xl opacity-90">
-                  Découvrez notre commune, son histoire, sa culture et sa population
-                </p>
-              </div>
-            </div>
-            <div className="absolute bottom-0 left-0 w-full overflow-hidden">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="w-full h-auto">
-                <path fill="#fff" fillOpacity="1" d="M0,128L80,133.3C160,139,320,149,480,170.7C640,192,800,224,960,213.3C1120,203,1280,149,1360,122.7L1440,96L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
-              </svg>
-            </div>
-          </section>
-
+{/* Hero Section - Version simplifiée et fiable */}
+<section className="bg-gradient-to-r from-mlomp-green to-mlomp-green-light py-12 md:py-20 relative overflow-hidden">
+  {/* Éléments décoratifs subtils */}
+  <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -translate-y-1/2 translate-x-1/4"></div>
+  <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-5 rounded-full translate-y-1/2 -translate-x-1/4"></div>
+  
+  <div className="container mx-auto px-4 relative z-10">
+    <div className="text-center">
+      <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 drop-shadow-sm">
+        Présentation de Mlomp
+      </h1>
+      <div className="w-20 h-1 bg-white/50 mx-auto mb-6"></div>
+      <p className="text-lg md:text-xl text-white opacity-90 max-w-2xl mx-auto leading-relaxed">
+        Découvrez notre commune, son histoire, sa culture et sa population
+      </p>
+    </div>
+  </div>
+  
+  {/* Bordure décorative en bas */}
+  <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+</section>
           {/* Nouveau: Portrait Officiel du Maire */}
           <section className="py-16 bg-white">
             <div className="container-custom">
