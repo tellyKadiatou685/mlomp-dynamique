@@ -20,6 +20,18 @@ const HeroSection = () => {
       <div className="absolute -top-20 -right-20 w-96 h-96 bg-mlomp-green/10 rounded-full filter blur-3xl opacity-70 z-0"></div>
       <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-mlomp-yellow/10 rounded-full filter blur-3xl opacity-70 z-0"></div>
 
+      {/* Grande demi-cercle pour l'image */}
+      <div className="absolute top-24 right-0 w-1/2 h-3/4 bg-mlomp-green/5 rounded-l-full z-0 overflow-hidden">
+        <motion.img
+          src="/lovable-uploads/mm.jpeg"
+          alt="Ansoumana Papiss Dieme - Maire de Mlomp"
+          className="h-full w-full object-cover object-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        />
+      </div>
+
       <div className="container-custom relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
@@ -30,7 +42,9 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-gray-800 font-bold leading-tight mb-6 text-4xl md:text-6xl">
+            <h5 className="text-gray-600 font-medium mb-2 uppercase tracking-wider">Coach business & Mentor</h5>
+            
+            <h1 className="text-gray-800 font-bold leading-tight mb-6 text-4xl md:text-5xl">
               <span className="text-mlomp-green">Commune</span> de Mlomp
             </h1>
             
@@ -70,58 +84,27 @@ const HeroSection = () => {
                 <div className="text-gray-600 text-sm">Projets en cours</div>
               </div>
             </div>
-          </motion.div>
-          
-          {/* Carte du Maire animée - occupe 5 colonnes sur grand écran */}
-          <motion.div
-            className="lg:col-span-5 relative"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <div className="bg-white p-6 rounded-2xl shadow-2xl hover:shadow-2xl transition-all duration-500 relative overflow-hidden">
-              {/* Élément décoratif */}
-              <div className="absolute -top-10 -right-10 w-24 h-24 bg-mlomp-yellow/20 rounded-full"></div>
-              
-              <div className="relative overflow-hidden rounded-xl">
-                <div className="aspect-w-4 aspect-h-5">
-                  <motion.img
-                    src="/lovable-uploads/25fa12d1-5705-42a3-b9da-60f1485c9bef.png"
-                    alt="Ansoumana Papiss Dieme - Maire de Mlomp"
-                    className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-white">
-                  <h3 className="text-xl font-bold">Ansoumana Papiss Dieme</h3>
-                  <p className="text-white/80 text-sm">Maire de la Commune de Mlomp</p>
-                </div>
-              </div>
-              
-              <div className="mt-6 relative">
-                <svg className="absolute top-0 left-0 w-10 h-10 text-mlomp-green/10 transform -translate-x-4 -translate-y-6" 
-                     fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-4.058 2.958-4.058 5.22v10.929h-5.92zm-11.003 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-4.059 2.958-4.059 5.22v10.629h-5.937z"></path>
-                </svg>
-                
-                <p className="text-gray-600 italic mb-4 pl-6">
-                  "Ensemble, construisons un avenir prospère pour notre commune et offrons à chaque citoyen les moyens de s'épanouir."
-                </p>
-                
-                <Link to="/presentation" className="flex items-center justify-end mt-3 text-mlomp-green font-medium hover:text-mlomp-green-dark transition-colors group">
-                  <span>Message du maire</span>
-                  <ArrowRight className="ml-2 h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </div>
-            </div>
             
-            {/* Badge décoratif */}
-            <div className="absolute -bottom-5 -left-5 bg-mlomp-yellow/90 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg transform rotate-3">
-              Élu en 2023
+            {/* 3 étapes - comme dans l'exemple */}
+            <div className="mt-12">
+              <h3 className="font-bold text-lg mb-2 text-center">3 ÉTAPES POUR</h3>
+              <p className="font-bold text-xl text-center">Impacter son audience</p>
             </div>
           </motion.div>
           
+          {/* Espace réservé pour l'image - celle-ci est déjà placée en absolu */}
+          <div className="lg:col-span-5">
+            {/* L'image est placée en position absolue dans le demi-cercle plus haut */}
+          </div>
         </div>
+      </div>
+
+      {/* Ligne pointillée décorative (comme dans l'exemple) */}
+      <div className="absolute bottom-32 right-1/3 z-10 hidden lg:block">
+        <svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 20H120" stroke="#888" strokeWidth="2" strokeDasharray="4 4" />
+          <circle cx="110" cy="20" r="5" fill="#FFD700" />
+        </svg>
       </div>
     </section>
   );
