@@ -42,7 +42,6 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h5 className="text-gray-600 font-medium mb-2 uppercase tracking-wider">Coach business & Mentor</h5>
             
             <h1 className="text-gray-800 font-bold leading-tight mb-6 text-4xl md:text-5xl">
               <span className="text-mlomp-green">Commune</span> de Mlomp

@@ -258,11 +258,11 @@ const InvestmentSection = () => {
               <div className="space-y-3">
                 <div className="flex items-center">
                   <span className="font-medium w-24">Email:</span>
-                  <span className="text-mlomp-green">investir@mlomp.sn</span>
+                  <span className="text-mlomp-green">contact@mlomp.sn</span>
                 </div>
                 <div className="flex items-center">
                   <span className="font-medium w-24">Téléphone:</span>
-                  <span>+221 XX XXX XX XX</span>
+                  <span>776359984</span>
                 </div>
                 <div className="flex items-center">
                   <span className="font-medium w-24">Bureau:</span>
