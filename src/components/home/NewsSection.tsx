@@ -15,18 +15,19 @@ type NewsItem = {
 const newsItems: NewsItem[] = [
   {
     id: 1,
-    title: "Inauguration du nouveau centre de santé de Mlomp",
-    excerpt: "Le Maire Ansoumana Papiss Dieme a inauguré le nouveau centre de santé qui améliorera l'accès aux soins pour les habitants.",
+    title: "Don d’ambulance offert par le Maire Ansoumana Papiss Dieme",
+    excerpt: "Le Maire Ansoumana Papiss Dieme a offert une ambulance pour faciliter l’évacuation et la prise en charge des patients dans la commune.",
     date: "15 Juin 2023",
-    image: "/lovable-uploads/7da0caaf-815f-40f0-a79f-8ae98789853a.png",
+    image: "/lovable-uploads/ambulance.jpeg", // Remplace par le bon chemin d'image
     category: "Santé"
   },
+  
   {
     id: 2,
     title: "Lancement du programme de soutien aux agriculteurs locaux",
     excerpt: "Une nouvelle initiative pour aider les agriculteurs de Mlomp à améliorer leurs techniques et leur productivité.",
     date: "3 Mai 2023",
-    image: "/lovable-uploads/fc012e5d-71f0-4b17-9228-a30095f78a90.png",
+    image: "/lovable-uploads/ag1.jpg",
     category: "Agriculture"
   },
   {
@@ -34,7 +35,7 @@ const newsItems: NewsItem[] = [
     title: "Réunion du conseil municipal pour le budget 2024",
     excerpt: "Les élus se sont réunis pour discuter et approuver le budget prévisionnel de l'année 2024.",
     date: "22 Avril 2023",
-    image: "/lovable-uploads/b0e38c51-cfbe-4da2-9b6f-3cccf9b0025f.png",
+    image: "/lovable-uploads/reunion.jpeg",
     category: "Administration"
   }
 ];
@@ -63,20 +64,7 @@ const NewsCard = ({ news }: { news: NewsItem }) => {
           </Link>
         </h3>
         <p className="text-gray-600 flex-grow">{news.excerpt}</p>
-        <Link
-          to={`/actualites/${news.id}`}
-          className="mt-4 inline-flex items-center text-mlomp-green hover:text-mlomp-green-light font-medium"
-        >
-          Lire la suite
-          <svg
-            className="w-4 h-4 ml-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-        </Link>
+       
       </div>
     </article>
   );

@@ -22,6 +22,7 @@ import AdminPage3 from "./pages/AdminPage3";
 import AdminPage4 from "./pages/AdminPage4";
 
 import NewsDetails from "./pages/NewsDetail";
+import AdminPage5 from "./pages/adminPage5";
 
 
 
@@ -62,6 +63,7 @@ const App = () => {
         
               <Route path="/admin/procedures" element={<AdminPage3 />} />
               <Route path="/admin/investissements" element={<AdminPage4 />} />
+              <Route path="/admin/gallery" element={<AdminPage5 />} />
 
 
               <Route path="*" element={<NotFound />} />
