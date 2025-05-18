@@ -120,13 +120,13 @@ const Navbar = () => {
           ))}
           
           {/* Bouton de connexion */}
-          <Link 
+          {/* <Link 
             to="/login" 
             className="flex items-center space-x-1 font-medium text-mlomp-green hover:text-mlomp-green-dark transition-colors"
           >
             <LogIn className="h-4 w-4" />
             <span>Admin</span>
-          </Link>
+          </Link> */}
         </div>
 
         {/* Mobile Menu Button */}

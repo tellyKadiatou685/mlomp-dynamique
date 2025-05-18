@@ -94,10 +94,10 @@ const Welcome = () => {
               </Link>
               
               <Link
-                to="/admin/profile"
+                to="/admin/gallery"
                 className="bg-gray-600 hover:bg-gray-700 text-white p-4 rounded-md text-center transition-colors"
               >
-                Mon profil
+                Ma Galerie
               </Link>
               <Link
                 to="/admin/procedures"

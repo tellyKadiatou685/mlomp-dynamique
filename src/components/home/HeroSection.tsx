@@ -86,7 +86,7 @@ const HeroSection = () => {
               <div className="relative overflow-hidden rounded-xl">
                 <div className="aspect-w-4 aspect-h-5">
                   <motion.img
-                    src="/lovable-uploads/25fa12d1-5705-42a3-b9da-60f1485c9bef.png"
+                    src="/lovable-uploads/mm.jpeg"
                     alt="Ansoumana Papiss Dieme - Maire de Mlomp"
                     className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
                   />

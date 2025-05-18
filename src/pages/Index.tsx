@@ -11,6 +11,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Helmet } from "react-helmet-async";
 import { useEffect } from "react";
+import GalleryGrid from "@/components/GalleryGrid";
 
 const Index = () => {
   // Add debugging to check if component renders
@@ -30,7 +31,7 @@ const Index = () => {
           <ServicesSection />
           <ProjectsSection />
           <NewsSection />
-          <CitizenSection />
+          <GalleryGrid />
           <InvestmentSection />
           <ContactSection />
         </main>
