@@ -490,7 +490,7 @@ const Presentation = () => {
                   <div className="md:col-span-1">
                     <div className="relative">
                       <img 
-                        src="/lovable-uploads/25fa12d1-5705-42a3-b9da-60f1485c9bef.png" 
+                        src="/lovable-uploads/mm.jpeg" 
                         alt="Ansoumana Papiss Dieme - Maire de Mlomp" 
                         className="rounded-lg shadow-lg w-full h-auto"
                       />

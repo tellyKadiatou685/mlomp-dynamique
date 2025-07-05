@@ -20,6 +20,18 @@ const HeroSection = () => {
       <div className="absolute -top-20 -right-20 w-96 h-96 bg-mlomp-green/10 rounded-full filter blur-3xl opacity-70 z-0"></div>
       <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-mlomp-yellow/10 rounded-full filter blur-3xl opacity-70 z-0"></div>
 
+      {/* Grande demi-cercle pour l'image */}
+      <div className="absolute top-24 right-0 w-1/2 h-3/4 bg-mlomp-green/5 rounded-l-full z-0 overflow-hidden">
+        <motion.img
+          src="/lovable-uploads/mm.jpeg"
+          alt="Ansoumana Papiss Dieme - Maire de Mlomp"
+          className="h-full w-full object-cover object-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        />
+      </div>
+
       <div className="container-custom relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
@@ -30,7 +42,8 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-gray-800 font-bold leading-tight mb-6 text-4xl md:text-6xl">
+            
+            <h1 className="text-gray-800 font-bold leading-tight mb-6 text-4xl md:text-5xl">
               <span className="text-mlomp-green">Commune</span> de Mlomp
             </h1>
             
@@ -69,6 +82,12 @@ const HeroSection = () => {
                 <div className="text-mlomp-green text-2xl font-bold">25+</div>
                 <div className="text-gray-600 text-sm">Projets en cours</div>
               </div>
+            </div>
+            
+            {/* 3 étapes - comme dans l'exemple */}
+            <div className="mt-12">
+              <h3 className="font-bold text-lg mb-2 text-center">3 ÉTAPES POUR</h3>
+              <p className="font-bold text-xl text-center">Impacter son audience</p>
             </div>
           </motion.div>
           
@@ -114,14 +133,16 @@ const HeroSection = () => {
                 </Link>
               </div>
             </div>
-            
-            {/* Badge décoratif */}
-            <div className="absolute -bottom-5 -left-5 bg-mlomp-yellow/90 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg transform rotate-3">
-              Élu en 2023
-            </div>
           </motion.div>
-          
         </div>
+      </div>
+
+      {/* Ligne pointillée décorative (comme dans l'exemple) */}
+      <div className="absolute bottom-32 right-1/3 z-10 hidden lg:block">
+        <svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 20H120" stroke="#888" strokeWidth="2" strokeDasharray="4 4" />
+          <circle cx="110" cy="20" r="5" fill="#FFD700" />
+        </svg>
       </div>
     </section>
   );
